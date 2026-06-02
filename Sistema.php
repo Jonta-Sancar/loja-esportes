@@ -36,7 +36,7 @@ class Sistema {
         $BANCO_DE_DADOS[$id_sessao] = $this->crud->lerRegistros();
       }
 
-      $this->cadastrarDB($BANCO_DE_DADOS);
+      $this->salvarDB($BANCO_DE_DADOS);
       echo "\n";
     }while($sistema_ativo);
   }
@@ -57,7 +57,7 @@ class Sistema {
     return readline("> ");
   }
 
-  private function cadastrarDB($BANCO_DE_DADOS){
+  private function salvarDB($BANCO_DE_DADOS){
     $json_DB = json_encode($BANCO_DE_DADOS);
 
     file_put_contents($this->nome_arquivo_db, $json_DB);
@@ -70,6 +70,6 @@ class Sistema {
       return json_decode($conteudo_arquivo, true);
     }
 
-    return null;
+    return [];
   }
 }
