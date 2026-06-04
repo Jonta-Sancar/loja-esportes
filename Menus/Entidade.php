@@ -5,12 +5,15 @@ require_once __DIR__ . '/Menu.php';
 class Entidade extends Menu {
   protected $Entidade = null;
   protected $diretorio_entidades = __DIR__ . '/../BancoDados/';
+  protected $template = null;
 
   function __construct($entidade) {
     $database = new Database();
 
     require_once $this->diretorio_entidades . $entidade . '.php';
     $this->$Entidade = new $entidade($database->lerDB());
+
+    $this->template = $this->Entidade->describe()['template'];
 
     parent::__construct('Menu principal', [
       "Criar",
