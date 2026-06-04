@@ -46,25 +46,30 @@ class Entidade extends Menu {
   protected function cadastrar() {
     // formulário de cadastro
     // salvar no banco
+    $this->Entidade->manipularBanco('insert' /* dados */);
   }
 
   protected function listar() {
     // puxar do banco
     // exibir
+    $this->Entidade->manipularBanco('select*' /* dados */);
   }
 
   protected function ler() {
     // puxar específico do banco
     // exibir
+    $this->Entidade->manipularBanco('select' /* dados */);
   }
 
   protected function editar() {
     // formulário de edição
     // salvar no banco
+    $this->Entidade->manipularBanco('update' /* dados */);
   }
 
   protected function deletar() {
     // confirmação da ação
     // remover do banco
+    $this->Entidade->manipularBanco('delete' /* dados */);
   }
 }
