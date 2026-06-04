@@ -51,14 +51,14 @@ class Entidade extends Menu {
 
   protected function listar() {
     // puxar do banco
-    // exibir
     $this->Entidade->manipularBanco('select*' /* dados */);
+    // exibir
   }
 
   protected function ler() {
     // puxar específico do banco
-    // exibir
     $this->Entidade->manipularBanco('select' /* dados */);
+    // exibir
   }
 
   protected function editar() {
