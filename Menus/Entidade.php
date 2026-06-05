@@ -118,7 +118,8 @@ class Entidade extends Menu {
 
     echo "\nIndique os novos valores para o registro " . $registro['id'] . " de " . $this->titulo_entidade;
     foreach ($this->template as $coluna => $coluna_info){
-      $dados[$coluna] = $this->input($coluna_info[0] . "\n(padrão: " . $dados[$coluna] . ")", padrao: $dados[$coluna]);
+      $enunciado = $coluna_info[0] . "\n(padrão: " . $dados[$coluna] . ")";
+      $dados[$coluna] = $this->input($enunciado, padrao: $dados[$coluna]);
     }
 
     // salvar no banco
