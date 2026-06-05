@@ -118,7 +118,7 @@ class Entidade extends Menu {
 
     echo "\nIndique os novos valores para o registro " . $registro['id'] . " de " . $this->titulo_entidade;
     foreach ($this->template as $coluna => $coluna_info){
-      $enunciado = $coluna_info[0] . "\n(padrão: " . $dados[$coluna] . ")";
+      $enunciado = $coluna_info[0] . " (" . $dados[$coluna] . ")";
       $dados[$coluna] = $this->input($enunciado, padrao: $dados[$coluna]);
     }
 
@@ -139,7 +139,7 @@ class Entidade extends Menu {
   }
 
   protected function buscarRegistro(){
-    $registro_id = $this->input("Indique o registro para leitura");
+    $registro_id = $this->input("Indique o registro para busca");
 
     // puxar específico do banco
     $registro = $this->Entidade->manipularBanco('select', ['id' => $registro_id]);

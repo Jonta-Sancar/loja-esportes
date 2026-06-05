@@ -41,6 +41,7 @@ abstract class Menu {
       echo "\n$nome\n";
   
       if($opcoes !== null) {
+        $tipo = 'number';
         foreach ($opcoes as $key => $value) {
           echo "\n" . ($key+1) . ". $value";
         }
@@ -48,8 +49,9 @@ abstract class Menu {
       }
   
       $resposta = trim(readline("> "));
+      $resposta = empty($resposta) && $padrao !== null ? $padrao : $resposta;
 
-      if(!$this->validaRespostaInput($resposta, $opcoes, $padrao, $nulo)) {
+      if(!$this->validaRespostaInput($resposta, $opcoes, $nulo)) {
         echo "\nResposta inválida, tente novamente.\n";
         continue;
       }
@@ -63,9 +65,7 @@ abstract class Menu {
     }while(true);
   }
 
-  protected function validaRespostaInput($resposta, $opcoes, $padrao, $nulo){
-    $resposta = empty($resposta) && $padrao !== null ? $padrao : $resposta;
-
+  protected function validaRespostaInput($resposta, $opcoes, $nulo){
     $opcao_valida = $opcoes === null || ($opcoes !== null && !isset($opcoes[$resposta]));
     $valor_vazio = $nulo === true || ($nulo === false && !empty($resposta));
 
