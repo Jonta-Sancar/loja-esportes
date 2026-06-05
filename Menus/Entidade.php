@@ -65,7 +65,7 @@ class Entidade extends Menu {
     // puxar do banco
     $registros = $this->Entidade->manipularBanco('select*');
 
-    if($registros['status']){
+    if($registros['status'] && count($registros['registros'])){
       $registros = $registros['registros'];
     } else {
       echo "\nSem registros a exibir.";
