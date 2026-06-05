@@ -1,0 +1,8 @@
+<?php
+
+# CLI = Command Line Interface
+
+require_once __DIR__ . "/Menus/Principal.php";
+
+$menu_principal = new Principal();
+$menu_principal->executar();
