@@ -9,6 +9,8 @@ class Principal extends Menu{
     $database = new Database();
     $entidades = $database->listarEntidades();
 
+    $this->limpar_terminal = true;
+
     parent::__construct('Menu principal', $entidades, 'Sair Do Sistema');
   }
 
@@ -16,7 +18,7 @@ class Principal extends Menu{
     $database = new Database();
     $entidades = $database->listarEntidades();
 
-    $Entidade = new Entidade($entidades[$resposta]);
+    $Entidade = new Entidade(ucfirst($entidades[$resposta]));
     $Entidade->executar();
   }
 }

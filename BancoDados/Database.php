@@ -26,6 +26,18 @@ class Database {
     $this->salvarDB($BANCO_DE_DADOS);
   }
 
+  public function atualizarBanco(String $id_sessao, Array $registros) : void { // public
+    $BANCO_DE_DADOS = $this->lerDB();
+
+    if(empty($BANCO_DE_DADOS)){
+      $BANCO_DE_DADOS = [];
+    }
+
+    $BANCO_DE_DADOS[$id_sessao] = $registros;
+
+    $this->salvarDB($BANCO_DE_DADOS);
+  }
+
   public function listarEntidades(){
     $entidades = [];
 

@@ -1,8 +1,9 @@
 <?php
+require_once __DIR__ . "/Database.php";
 
 abstract class CRUD {
   protected $id_sessao     = 'system';
-  protected $titulo_sessao = 'System';
+  public    $titulo_sessao = 'System';
   
   protected $template      = [
     'dado'  => ['Dado', true],
@@ -18,11 +19,11 @@ abstract class CRUD {
                        : [];
   }
 
-  function manipularBanco(String $action, Array|null $dados){
+  function manipularBanco(String $action, Array|null $dados = null){
     switch($action){
       case 'insert':
         $new_id = $this->cadastrar($dados);
-        return [
+        $resultado = [
           'status'    => true,
           'msg'       => 'operação executada com sucesso',
           'id'        => $new_id,
@@ -31,7 +32,7 @@ abstract class CRUD {
         break;
       case 'select*':
         $this->listar();
-        return [
+        $resultado = [
           'status' => true,
           'msg'    => 'operação executada com sucesso',
           'registros' => $this->registros
@@ -39,7 +40,7 @@ abstract class CRUD {
         break;
       case 'select':
         $this->ler($dados);
-        return [
+        $resultado = [
           'status' => true,
           'msg'    => 'operação executada com sucesso',
           'registros' => $this->registros
@@ -47,7 +48,7 @@ abstract class CRUD {
         break;
       case 'update':
         $this->editar($dados);
-        return [
+        $resultado = [
           'status' => true,
           'msg'    => 'operação executada com sucesso',
           'registros' => $this->registros
@@ -55,20 +56,25 @@ abstract class CRUD {
         break;
       case 'delete':
         $this->deletar($dados);
-        return [
+        $resultado = [
           'status' => true,
           'msg'    => 'operação executada com sucesso',
           'registros' => $this->registros
         ];
         break;
       default:
-        return [
+        $resultado = [
           'status' => false,
           'msg'    => 'não foi possível identificar a ação a executar',
           'registros' => $this->registros
         ];
         break;
     }
+
+    $database = new Database();
+    $database->atualizarBanco($this->id_sessao, $this->registros);
+
+    return $resultado;
   }
 
   protected function cadastrar(Array $dados) : String {
@@ -96,7 +102,7 @@ abstract class CRUD {
     unset($this->registros[$dados['id']]);
   }
 
-  protected function describe(){
+  public function describe(){
     return [
       'id_sessao' => $this->id_sessao,
       'titulo_sessao' => $this->titulo_sessao,
@@ -116,5 +122,13 @@ abstract class CRUD {
     $count = count($this->registros);
 
     return $count . '-' . $random;
+  }
+
+  public function lerIdSessao(){
+    return $this->id_sessao;
+  }
+
+  public function lerRegistros(){
+    return $this->registros;
   }
 }

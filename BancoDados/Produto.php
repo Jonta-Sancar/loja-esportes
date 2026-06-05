@@ -3,7 +3,7 @@ require_once __DIR__ . '/CRUD.php';
 
 class Produto extends CRUD{
   protected $id_sessao     = 'produtos';
-  protected $titulo_sessao = 'PRODUTOS';
+  public    $titulo_sessao = 'PRODUTOS';
   
   protected $template      = [
     'nome'      => ['Nome', true],

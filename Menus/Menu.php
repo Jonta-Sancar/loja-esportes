@@ -6,6 +6,8 @@ abstract class Menu {
 
   protected $opcao_saida = 'Sair';
 
+  protected $limpar_terminal = false;
+
   public function __construct($titulo = "Menu", $opcoes = [], $opcao_saida = "Sair") {
     $this->titulo = $titulo;
     $this->opcoes = $opcoes;
@@ -16,13 +18,17 @@ abstract class Menu {
     do{
       echo "\n$this->titulo\n\n";
   
-      $resposta = $this->input("Opções", [$this->opcoes, $this->opcao_saida]);
+      $resposta = $this->input("Opções", [...$this->opcoes, $this->opcao_saida]);
   
-      if($resposta == count($this->opcoes)+1){
+      if($resposta == count($this->opcoes)){
         return;
       }
       
       $this->selecionarTarefa($resposta);
+
+      if($this->limpar_terminal){
+        system("clear");
+      }
     }while(true);
   }
 
