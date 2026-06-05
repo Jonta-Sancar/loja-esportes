@@ -4,7 +4,7 @@ require_once __DIR__ . '/Menu.php';
 
 class Entidade extends Menu {
   protected $Entidade = null;
-  protected $diretorio_entidades = __DIR__ . '/../BancoDados/';
+  protected $titulo_entidade   = null;
   protected $template = null;
 
   function __construct($entidade) {
@@ -15,7 +15,9 @@ class Entidade extends Menu {
 
     $this->template = $this->Entidade->describe()['template'];
 
-    parent::__construct('Menu ' . $this->Entidade->titulo_sessao, [
+    $this->titulo_entidade = ucfirst(strtolower($this->Entidade->titulo_sessao));
+
+    parent::__construct('Menu ' . $this->titulo_entidade, [
       "Criar",
       "Listar",
       "Ler",
@@ -50,7 +52,7 @@ class Entidade extends Menu {
     // formulário de cadastro
     $dados = [];
 
-    echo "\nIndique os valores para o novo registro de " . $this->Entidade->titulo_sessao;
+    echo "\nIndique os valores para o novo registro de " . $this->titulo_entidade;
     foreach ($this->template as $coluna => $coluna_info){
       $dados[$coluna] = $this->input($coluna_info[0]);
     }
@@ -71,7 +73,7 @@ class Entidade extends Menu {
     }
 
     // exibir
-    echo "\nSeus registros de " . $this->Entidade->titulo_sessao;
+    echo "\nSeus registros de " . $this->titulo_entidade;
     foreach ($registros as $key => $value) {
       echo "\n" . $key . " - ";
 
@@ -95,7 +97,7 @@ class Entidade extends Menu {
     }
 
     // exibir
-    echo "\nDados do registro " . $registro['id'] . " de " . $this->Entidade->titulo_sessao;
+    echo "\nDados do registro " . $registro['id'] . " de " . $this->titulo_entidade;
     foreach(array_values($registro['dados'])[0] as $coluna => $dado){
       $titulo_coluna = $this->template[$coluna][0];
       echo "\n$titulo_coluna:\n- $dado";
@@ -111,12 +113,12 @@ class Entidade extends Menu {
     }
 
     // formulário de cadastro
-    $dados = $registro['dados'];
+    $dados = array_values($registro['dados'])[0];
     $dados['id'] = $registro['id'];
 
-    echo "\nIndique os novos valores para o registro " . $registro['id'] . " de " . $this->Entidade->titulo_sessao;
+    echo "\nIndique os novos valores para o registro " . $registro['id'] . " de " . $this->titulo_entidade;
     foreach ($this->template as $coluna => $coluna_info){
-      $dados[$coluna] = $this->input($coluna_info[0] . "\n(padrão: " . $registro['dados'][$coluna] . ")", padrao: $registro['dados'][$coluna]);
+      $dados[$coluna] = $this->input($coluna_info[0] . "\n(padrão: " . $dados[$coluna] . ")", padrao: $dados[$coluna]);
     }
 
     // salvar no banco

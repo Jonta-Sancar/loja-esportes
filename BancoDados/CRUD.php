@@ -11,9 +11,14 @@ abstract class CRUD {
   ];
   // '<nome_coluna>' => ['<Título Coluna>', <se deve ser listado ou não [true|false]>]
 
+  protected $DB = null;
+
   protected $registros = [];
 
-  function __construct($BANCO_DE_DADOS) {
+  function __construct() {
+    $this->DB = new Database();
+    $BANCO_DE_DADOS = $this->DB->lerDB();
+
     $this->registros = isset($BANCO_DE_DADOS[$this->id_sessao])
                        ? $BANCO_DE_DADOS[$this->id_sessao]
                        : [];
@@ -71,9 +76,7 @@ abstract class CRUD {
         break;
     }
 
-    $database = new Database();
-    $database->atualizarBanco($this->id_sessao, $this->registros);
-
+    $this->DB->atualizarBanco($this->id_sessao, $this->registros);
     return $resultado;
   }
 

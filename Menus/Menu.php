@@ -4,6 +4,8 @@ abstract class Menu {
   protected $titulo = '';
   protected $opcoes = [];
 
+  protected $diretorio_entidades = __DIR__ . '/../BancoDados/';
+
   protected $opcao_saida = 'Sair';
 
   protected $limpar_terminal = false;
@@ -16,7 +18,7 @@ abstract class Menu {
 
   public function executar(){
     do{
-      echo "\n$this->titulo\n\n";
+      echo "\n\n$this->titulo\n";
   
       $resposta = $this->input("Opções", [...$this->opcoes, $this->opcao_saida]);
   
