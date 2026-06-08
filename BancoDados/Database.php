@@ -26,7 +26,7 @@ class Database {
     $this->salvarDB($BANCO_DE_DADOS);
   }
 
-  public function atualizarBanco(String $id_sessao, Array $registros) : void { // public
+  public function atualizarBanco(String $id_sessao, Array $registros) { // public
     $BANCO_DE_DADOS = $this->lerDB();
 
     if(empty($BANCO_DE_DADOS)){
@@ -35,7 +35,7 @@ class Database {
 
     $BANCO_DE_DADOS[$id_sessao] = $registros;
 
-    $this->salvarDB($BANCO_DE_DADOS);
+    return $this->salvarDB($BANCO_DE_DADOS);
   }
 
   public function listarEntidades(){
@@ -64,7 +64,7 @@ class Database {
   private function salvarDB($BANCO_DE_DADOS){
     $json_DB = json_encode($BANCO_DE_DADOS);
 
-    file_put_contents($this->nome_arquivo_db, $json_DB);
+    return file_put_contents($this->nome_arquivo_db, $json_DB);
   }
 
   public function lerDB(){

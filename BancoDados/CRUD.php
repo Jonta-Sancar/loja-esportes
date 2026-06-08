@@ -77,9 +77,13 @@ abstract class CRUD {
     }
 
     
-    $this->DB->atualizarBanco($this->id_sessao, $this->registros);
+    $atualizacao_banco = $this->DB->atualizarBanco($this->id_sessao, $this->registros);
     
-    return $resultado;
+    return $atualizacao_banco ? $resultado : [
+      'status'=> false,
+      'msg'       => 'Não foi possível gravar o registro',
+      'registros' => $this->registros
+    ];
   }
 
   protected function cadastrar(Array $dados) : String {
