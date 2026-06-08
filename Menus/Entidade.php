@@ -11,7 +11,7 @@ class Entidade extends Menu {
     $database = new Database();
 
     require_once $this->diretorio_entidades . $entidade . '.php';
-    $this->Entidade = new $entidade($database->lerDB());
+    $this->Entidade = new $entidade();
 
     $this->template = $this->Entidade->describe()['template'];
 
