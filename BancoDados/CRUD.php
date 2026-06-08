@@ -76,7 +76,9 @@ abstract class CRUD {
         break;
     }
 
+    
     $this->DB->atualizarBanco($this->id_sessao, $this->registros);
+    
     return $resultado;
   }
 
