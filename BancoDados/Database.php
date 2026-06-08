@@ -50,6 +50,17 @@ class Database {
     return $entidades;
   }
 
+
+  public function pegarNomeEntidades($entidades) {
+    return array_map(function($entidade){
+      $entidade = ucfirst($entidade);
+      require_once __DIR__ . "/" . $entidade . '.php';
+
+      $instancia = new $entidade();
+      return ucfirst(strtolower($instancia->titulo_sessao));
+    }, $entidades);
+  }
+
   private function salvarDB($BANCO_DE_DADOS){
     $json_DB = json_encode($BANCO_DE_DADOS);
 

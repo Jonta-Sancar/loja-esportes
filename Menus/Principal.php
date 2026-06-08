@@ -8,7 +8,7 @@ class Principal extends Menu{
     $database  = new Database();
     $entidades = $database->listarEntidades();
 
-    $entidades = $this->pegarNomeEntidades($entidades);
+    $entidades = $database->pegarNomeEntidades($entidades);
 
     $this->limpar_terminal = true;
 
@@ -21,15 +21,5 @@ class Principal extends Menu{
 
     $Entidade = new Entidade(ucfirst($entidades[$resposta]));
     $Entidade->executar();
-  }
-
-  protected function pegarNomeEntidades($entidades) {
-    return array_map(function($entidade){
-      $entidade = ucfirst($entidade);
-      require_once $this->diretorio_entidades . $entidade . '.php';
-
-      $instancia = new $entidade();
-      return ucfirst(strtolower($instancia->titulo_sessao));
-    }, $entidades);
   }
 }
