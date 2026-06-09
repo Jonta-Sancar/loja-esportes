@@ -65,9 +65,9 @@ $template = $Entidade->describe()['template'];
                 }
               ?>
               <td>
-                <a href="./ler.php?r=<?= $id ?>">Ler</a>
-                <a href="./editar.php?r=<?= $id ?>">Editar</a>
-                <a href="./excluir.php?r=<?= $id ?>">Excluir</a>
+                <a href="./ler.php?e=<?= $_GET['e'] ?>&r=<?= $id ?>">Ler</a>
+                <a href="./editar.php?e=<?= $_GET['e'] ?>&r=<?= $id ?>">Editar</a>
+                <a href="./excluir.php?e=<?= $_GET['e'] ?>&r=<?= $id ?>">Excluir</a>
               </td>
             </tr>
           <?php
